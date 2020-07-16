@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cmath>
 
 bool isPrime(int num) {
@@ -21,4 +22,41 @@ int mainSearch(int n, int found, int testing) {
     found += (isPrime(testing - 1) + isPrime(testing + 1));
   }
   return testing + (2 * (found == n && isPrime(testing + 1))) - 1;
+}
+
+std::string killZeroes(double num) {
+  std::string string = std::to_string(num);
+  int len = string.length();
+  for (int i = len - 1; i > 0; i--) {
+    if (string[i] == '0') {
+      string.pop_back();
+    }
+    else {
+      break;
+    }
+  }
+  if (string[string.length() - 1] == '.') {
+    string.pop_back();
+  }
+  return string;
+}
+
+std::string printTime(double duration) {
+  std::string unit;
+  if (duration < 0.001) {
+    duration *= 1000000;
+    unit = "microseconds";
+  }
+  else if (duration < 1) {
+    duration *= 1000;
+    unit = "milliseconds";
+  }
+  else {
+    unit = "seconds";
+  }
+  std::string s_duration = killZeroes(duration);
+  s_duration += " ";
+  s_duration += unit;
+  s_duration += "\n";
+  return s_duration;
 }
